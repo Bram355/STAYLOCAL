@@ -1,16 +1,8 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
-import ListingDetail from "./pages/ListingDetail";
-import HostProfile from "./pages/HostProfile";
-import Cart from "./pages/Cart";
-import Login from "./pages/Login";
-import Register from "./pages/Register";
-import { useEffect } from "react";
+// src/seedListings.js
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "./firebaseConfig";
 
-// Replace with your real listings + image URLs
+// Replace these with your real listings
 const sampleListings = [
   {
     title: "Cozy Beachfront Cottage",
@@ -38,7 +30,7 @@ const sampleListings = [
   }
 ];
 
-async function seedListings() {
+export async function seedListings() {
   try {
     const listingsRef = collection(db, "listings");
     for (let listing of sampleListings) {
@@ -49,27 +41,3 @@ async function seedListings() {
     console.error("❌ Error seeding listings:", error);
   }
 }
-
-function App() {
-  useEffect(() => {
-    seedListings();
-  }, []);
-
-  return (
-    <Router>
-      <Navbar />
-      <div>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/listing/:id" element={<ListingDetail />} />
-          <Route path="/host/:id" element={<HostProfile />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
-      </div>
-    </Router>
-  );
-}
-
-export default App;
