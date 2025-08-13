@@ -18,62 +18,52 @@ export default function Navbar() {
   }, []);
 
   return (
-    <nav className="bg-gray-900/80 backdrop-blur-md shadow-lg fixed w-full top-0 z-50 text-white">
+    <nav className="bg-gradient-to-r from-gray-900/90 via-gray-800/70 to-gray-900/90 backdrop-blur-lg shadow-xl fixed w-full top-0 z-50 text-white">
       <div className="max-w-6xl mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
         <Link
           to="/"
-          className="text-3xl font-extrabold bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 bg-clip-text text-transparent drop-shadow-lg"
+          className="text-3xl font-extrabold bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent drop-shadow-lg animate-pulse"
         >
           StayLocal
         </Link>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex gap-6 items-center font-bold text-lg">
-          <Link
-            to="/"
-            className="text-gray-300 hover:text-white transition-colors"
-          >
+          <Link className="text-gray-300 hover:text-white hover:drop-shadow-xl transition-all" to="/">
             Home
           </Link>
-          <Link
-            to="/listings"
-            className="text-gray-300 hover:text-white transition-colors"
-          >
+          <Link className="text-gray-300 hover:text-white hover:drop-shadow-xl transition-all" to="/listings">
             Listings
           </Link>
 
-          {/* Desktop Marketplace Button */}
           <Link
             to="/market"
-            className="px-4 py-2 rounded-lg bg-indigo-600 shadow-md text-white hover:bg-indigo-700 hover:shadow-lg transition transform hover:-translate-y-0.5"
+            className="px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 shadow-lg hover:scale-105 transition transform hover:shadow-pink-500/60"
           >
             🛍️ Marketplace
           </Link>
 
           <Link
             to="/cart"
-            className="relative flex items-center text-gray-300 hover:text-white transition-colors"
+            className="relative flex items-center text-gray-300 hover:text-white transition-all"
           >
             🛒 Cart
             {cartCount > 0 && (
-              <span className="absolute -top-2 -right-3 bg-red-500 text-xs px-2 py-0.5 rounded-full text-white shadow-md animate-pulse">
+              <span className="absolute -top-2 -right-3 bg-red-500 text-xs px-2 py-0.5 rounded-full text-white shadow-lg animate-pulse">
                 {cartCount}
               </span>
             )}
           </Link>
 
-          <Link
-            to="/login"
-            className="text-gray-300 hover:text-white transition-colors"
-          >
+          <Link className="text-gray-300 hover:text-white hover:drop-shadow-xl transition-all" to="/login">
             Login
           </Link>
         </div>
 
         {/* Mobile Menu Button */}
         <button
-          className="md:hidden p-3 rounded-full bg-white/40 hover:bg-white/60 transition text-3xl shadow-lg"
+          className="md:hidden p-3 rounded-full bg-white/20 hover:bg-white/40 transition text-3xl shadow-lg animate-pulse"
           onClick={() => setMenuOpen(!menuOpen)}
           aria-label="Toggle menu"
         >
@@ -92,8 +82,6 @@ export default function Navbar() {
         leaveTo="translate-x-full opacity-0"
       >
         <div className="fixed top-0 right-0 h-full w-72 bg-gray-900 shadow-2xl z-50 flex flex-col py-6 px-4 space-y-6 text-lg font-bold text-white">
-          
-          {/* Menu Close Button */}
           <button
             className="self-end p-2 rounded-full bg-white/20 hover:bg-white/40 text-2xl transition"
             onClick={() => setMenuOpen(false)}
@@ -101,18 +89,17 @@ export default function Navbar() {
             ✕
           </button>
 
-          {/* Main Links */}
           <div className="flex flex-col space-y-4">
             <Link
               to="/"
-              className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-indigo-600 transition"
+              className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 transition-all"
               onClick={() => setMenuOpen(false)}
             >
               🏠 Home
             </Link>
             <Link
               to="/listings"
-              className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-indigo-600 transition"
+              className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 transition-all"
               onClick={() => setMenuOpen(false)}
             >
               🏘️ Listings
@@ -124,7 +111,7 @@ export default function Navbar() {
           <div className="flex flex-col space-y-4">
             <Link
               to="/market"
-              className="flex items-center gap-3 px-3 py-2 rounded-lg bg-indigo-600 shadow-md hover:bg-indigo-700 hover:shadow-lg transition"
+              className="flex items-center gap-3 px-3 py-2 rounded-lg bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 shadow-lg hover:scale-105 transition transform"
               onClick={() => setMenuOpen(false)}
             >
               🛍️ Marketplace

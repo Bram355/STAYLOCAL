@@ -23,32 +23,36 @@ function ListingDetail() {
   };
 
   return (
-    <div className="pt-20 px-4 max-w-4xl mx-auto bg-gradient-to-b from-gray-900 via-gray-800 to-black text-white rounded-xl shadow-2xl">
-      <h1 className="text-4xl sm:text-5xl font-extrabold text-yellow-400 mb-4 text-center drop-shadow-lg">
+    <div className="pt-28 px-4 max-w-4xl mx-auto bg-gradient-to-b from-gray-900 via-gray-800 to-black text-white rounded-2xl shadow-2xl animate-fadeIn">
+      {/* Listing Title */}
+      <h1 className="text-5xl sm:text-6xl font-extrabold text-center mb-6 text-transparent bg-clip-text bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 drop-shadow-[0_0_25px_#ff00ff] animate-pulse">
         {listing.title}
       </h1>
 
-      <div className="relative group">
+      {/* Image with hover glow */}
+      <div className="relative group rounded-2xl overflow-hidden shadow-2xl">
         <img
           src={listing.image}
           alt={listing.title}
-          className="w-full h-72 sm:h-96 object-cover rounded-xl shadow-lg transform group-hover:scale-105 transition duration-500"
+          className="w-full h-80 sm:h-96 object-cover transform group-hover:scale-105 transition duration-500 rounded-2xl"
         />
-        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-30 transition duration-500 rounded-xl"></div>
+        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-20 transition duration-500 rounded-2xl"></div>
+
+        {/* Price Overlay */}
+        <span className="absolute top-4 right-4 bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white font-bold px-4 py-2 rounded-2xl shadow-lg animate-pulse text-lg sm:text-xl">
+          ${listing.price} / night
+        </span>
       </div>
 
+      {/* Description */}
       <p className="mt-6 text-lg text-gray-300 leading-relaxed">
         {listing.description}
       </p>
 
-      <p className="text-yellow-400 font-bold text-2xl mt-4">
-        ${listing.price}{" "}
-        <span className="text-gray-400 font-medium">/ night</span>
-      </p>
-
+      {/* Book Now Button */}
       <button
         onClick={handleAddToCart}
-        className="mt-6 w-full bg-yellow-500 hover:bg-yellow-600 active:scale-95 text-black font-bold py-3 px-4 rounded-lg transition duration-300 shadow-lg hover:shadow-yellow-500/50"
+        className="mt-6 w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 hover:scale-105 transition-transform duration-300 text-white font-bold py-3 px-4 rounded-2xl shadow-lg hover:shadow-pink-500/60"
       >
         Book Now
       </button>
