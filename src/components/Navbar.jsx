@@ -85,71 +85,80 @@ export default function Navbar() {
         leaveFrom="translate-x-0 opacity-100"
         leaveTo="translate-x-full opacity-0"
       >
-        <div className="fixed top-0 right-0 h-full w-72 bg-gray-900 shadow-2xl z-50 flex flex-col py-6 px-4 space-y-6 text-lg font-bold text-white">
-          {/* Close Button */}
-          <button
-            className="self-end p-2 rounded-full bg-white/20 hover:bg-white/40 text-2xl transition"
+        <>
+          {/* Overlay behind menu */}
+          <div
+            className="fixed inset-0 bg-black bg-opacity-50 z-40"
             onClick={() => setMenuOpen(false)}
-          >
-            ✕
-          </button>
+          ></div>
 
-          {/* Main Links */}
-          <div className="flex flex-col space-y-4">
-            <Link
-              to="/"
-              className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-indigo-600 transition"
+          {/* Menu panel */}
+          <div className="fixed top-0 right-0 h-full w-72 bg-gray-900 shadow-2xl z-50 flex flex-col py-6 px-4 space-y-6 text-lg font-bold text-white">
+            {/* Close Button */}
+            <button
+              className="self-end p-2 rounded-full bg-white/20 hover:bg-white/40 text-2xl transition"
               onClick={() => setMenuOpen(false)}
             >
-              🏠 Home
-            </Link>
-            <Link
-              to="/listings"
-              className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-indigo-600 transition"
-              onClick={() => setMenuOpen(false)}
-            >
-              🏘️ Listings
-            </Link>
+              ✕
+            </button>
+
+            {/* Main Links */}
+            <div className="flex flex-col space-y-4">
+              <Link
+                to="/"
+                className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-indigo-600 transition"
+                onClick={() => setMenuOpen(false)}
+              >
+                🏠 Home
+              </Link>
+              <Link
+                to="/listings"
+                className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-indigo-600 transition"
+                onClick={() => setMenuOpen(false)}
+              >
+                🏘️ Listings
+              </Link>
+            </div>
+
+            <div className="border-t border-gray-700"></div>
+
+            {/* Marketplace & Cart */}
+            <div className="flex flex-col space-y-4">
+              <Link
+                to="/market"
+                className="flex items-center gap-3 px-3 py-2 rounded-lg bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 shadow-lg hover:scale-105 transition transform"
+                onClick={() => setMenuOpen(false)}
+              >
+                🛍️ Marketplace
+              </Link>
+              <Link
+                to="/cart"
+                className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-indigo-600 transition relative"
+                onClick={() => setMenuOpen(false)}
+              >
+                🛒 Cart
+                {cartCount > 0 && (
+                  <span className="absolute right-3 bg-red-500 text-xs px-2 py-0.5 rounded-full text-white shadow-md animate-pulse">
+                    {cartCount}
+                  </span>
+                )}
+              </Link>
+            </div>
+
+            <div className="border-t border-gray-700"></div>
+
+            {/* Login */}
+            <div className="flex flex-col space-y-4 mt-auto">
+              <Link
+                to="/login"
+                className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-indigo-600 transition"
+                onClick={() => setMenuOpen(false)}
+              >
+                🔑 Login
+              </Link>
+            </div>
           </div>
-
-          <div className="border-t border-gray-700"></div>
-
-          {/* Marketplace & Cart */}
-          <div className="flex flex-col space-y-4">
-            <Link
-              to="/market"
-              className="flex items-center gap-3 px-3 py-2 rounded-lg bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 shadow-lg hover:scale-105 transition transform"
-              onClick={() => setMenuOpen(false)}
-            >
-              🛍️ Marketplace
-            </Link>
-            <Link
-              to="/cart"
-              className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-indigo-600 transition relative"
-              onClick={() => setMenuOpen(false)}
-            >
-              🛒 Cart
-              {cartCount > 0 && (
-                <span className="absolute right-3 bg-red-500 text-xs px-2 py-0.5 rounded-full text-white shadow-md animate-pulse">
-                  {cartCount}
-                </span>
-              )}
-            </Link>
-          </div>
-
-          <div className="border-t border-gray-700"></div>
-
-          {/* Login */}
-          <div className="flex flex-col space-y-4 mt-auto">
-            <Link
-              to="/login"
-              className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-indigo-600 transition"
-              onClick={() => setMenuOpen(false)}
-            >
-              🔑 Login
-            </Link>
-          </div>
-        </div>
+        </>
       </Transition>
     </nav>
   );
