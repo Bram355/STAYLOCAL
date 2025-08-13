@@ -6,6 +6,7 @@ export default function Navbar() {
   const [cartCount, setCartCount] = useState(0);
   const [menuOpen, setMenuOpen] = useState(false);
 
+  // Update cart count when cart changes
   const updateCartCount = () => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     setCartCount(cart.length);
@@ -30,33 +31,36 @@ export default function Navbar() {
 
         {/* Desktop Menu */}
         <div className="hidden md:flex gap-6 items-center font-bold text-lg">
-          <Link className="text-gray-300 hover:text-white hover:drop-shadow-xl transition-all" to="/">
+          <Link
+            to="/"
+            className="text-gray-300 hover:text-white hover:drop-shadow-xl transition-all"
+          >
             Home
           </Link>
-          <Link className="text-gray-300 hover:text-white hover:drop-shadow-xl transition-all" to="/listings">
+          <Link
+            to="/listings"
+            className="text-gray-300 hover:text-white hover:drop-shadow-xl transition-all"
+          >
             Listings
           </Link>
 
-          <Link
-            to="/market"
-            className="px-4 py-2 rounded-lg bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 shadow-lg hover:scale-105 transition transform hover:shadow-pink-500/60"
-          >
-            🛍️ Marketplace
-          </Link>
-
+          {/* Cart */}
           <Link
             to="/cart"
             className="relative flex items-center text-gray-300 hover:text-white transition-all"
           >
             🛒 Cart
             {cartCount > 0 && (
-              <span className="absolute -top-2 -right-3 bg-red-500 text-xs px-2 py-0.5 rounded-full text-white shadow-lg animate-pulse">
+              <span className="absolute -top-2 -right-3 bg-red-500 text-xs px-2 py-0.5 rounded-full text-white shadow-md animate-pulse">
                 {cartCount}
               </span>
             )}
           </Link>
 
-          <Link className="text-gray-300 hover:text-white hover:drop-shadow-xl transition-all" to="/login">
+          <Link
+            to="/login"
+            className="text-gray-300 hover:text-white hover:drop-shadow-xl transition-all"
+          >
             Login
           </Link>
         </div>
@@ -82,6 +86,7 @@ export default function Navbar() {
         leaveTo="translate-x-full opacity-0"
       >
         <div className="fixed top-0 right-0 h-full w-72 bg-gray-900 shadow-2xl z-50 flex flex-col py-6 px-4 space-y-6 text-lg font-bold text-white">
+          {/* Close Button */}
           <button
             className="self-end p-2 rounded-full bg-white/20 hover:bg-white/40 text-2xl transition"
             onClick={() => setMenuOpen(false)}
@@ -89,17 +94,18 @@ export default function Navbar() {
             ✕
           </button>
 
+          {/* Main Links */}
           <div className="flex flex-col space-y-4">
             <Link
               to="/"
-              className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 transition-all"
+              className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-indigo-600 transition"
               onClick={() => setMenuOpen(false)}
             >
               🏠 Home
             </Link>
             <Link
               to="/listings"
-              className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gradient-to-r hover:from-indigo-600 hover:via-purple-600 hover:to-pink-600 transition-all"
+              className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-indigo-600 transition"
               onClick={() => setMenuOpen(false)}
             >
               🏘️ Listings
@@ -108,6 +114,7 @@ export default function Navbar() {
 
           <div className="border-t border-gray-700"></div>
 
+          {/* Marketplace & Cart */}
           <div className="flex flex-col space-y-4">
             <Link
               to="/market"
@@ -132,6 +139,7 @@ export default function Navbar() {
 
           <div className="border-t border-gray-700"></div>
 
+          {/* Login */}
           <div className="flex flex-col space-y-4 mt-auto">
             <Link
               to="/login"
