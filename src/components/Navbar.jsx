@@ -43,7 +43,6 @@ export default function Navbar() {
             Listings
           </Link>
 
-          {/* Desktop Marketplace Button */}
           <Link
             to="/market"
             className="px-4 py-2 rounded-lg bg-indigo-600 shadow-md text-white hover:bg-indigo-700 hover:shadow-lg transition transform hover:-translate-y-0.5"
@@ -81,61 +80,79 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile Menu Dropdown */}
+      {/* Professional Mobile Menu */}
       <Transition
         show={menuOpen}
         enter="transition ease-out duration-300 transform"
-        enterFrom="-translate-y-10 opacity-0"
-        enterTo="translate-y-0 opacity-100"
+        enterFrom="translate-x-full opacity-0"
+        enterTo="translate-x-0 opacity-100"
         leave="transition ease-in duration-200 transform"
-        leaveFrom="translate-y-0 opacity-100"
-        leaveTo="-translate-y-10 opacity-0"
+        leaveFrom="translate-x-0 opacity-100"
+        leaveTo="translate-x-full opacity-0"
       >
-        <div className="md:hidden bg-gray-900/90 backdrop-blur-md shadow-md py-4 px-6 space-y-4 font-bold text-lg text-white">
-          <Link
-            to="/"
-            className="block hover:text-pink-300"
+        <div className="fixed top-0 right-0 h-full w-72 bg-gray-900/95 backdrop-blur-lg shadow-2xl z-50 flex flex-col py-6 px-4 space-y-6 text-lg font-bold text-white">
+          
+          {/* Menu Close Button */}
+          <button
+            className="self-end p-2 rounded-full bg-white/20 hover:bg-white/40 text-2xl transition"
             onClick={() => setMenuOpen(false)}
           >
-            Home
-          </Link>
-          <Link
-            to="/listings"
-            className="block hover:text-pink-300"
-            onClick={() => setMenuOpen(false)}
-          >
-            Listings
-          </Link>
+            ✕
+          </button>
 
-          {/* Mobile Marketplace Button */}
-          <Link
-            to="/market"
-            className="block px-4 py-2 rounded-lg bg-indigo-600 shadow-md text-white hover:bg-indigo-700 hover:shadow-lg transition"
-            onClick={() => setMenuOpen(false)}
-          >
-            🛍️ Marketplace
-          </Link>
+          {/* Main Links */}
+          <div className="flex flex-col space-y-4">
+            <Link
+              to="/"
+              className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-indigo-600 transition"
+              onClick={() => setMenuOpen(false)}
+            >
+              🏠 Home
+            </Link>
+            <Link
+              to="/listings"
+              className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-indigo-600 transition"
+              onClick={() => setMenuOpen(false)}
+            >
+              🏘️ Listings
+            </Link>
+          </div>
 
-          <Link
-            to="/cart"
-            className="block relative hover:text-pink-300"
-            onClick={() => setMenuOpen(false)}
-          >
-            🛒 Cart
-            {cartCount > 0 && (
-              <span className="absolute ml-1 bg-red-500 text-xs px-2 py-0.5 rounded-full text-white shadow-md animate-pulse">
-                {cartCount}
-              </span>
-            )}
-          </Link>
+          <div className="border-t border-gray-700"></div>
 
-          <Link
-            to="/login"
-            className="block hover:text-pink-300"
-            onClick={() => setMenuOpen(false)}
-          >
-            Login
-          </Link>
+          <div className="flex flex-col space-y-4">
+            <Link
+              to="/market"
+              className="flex items-center gap-3 px-3 py-2 rounded-lg bg-indigo-600 shadow-md hover:bg-indigo-700 hover:shadow-lg transition"
+              onClick={() => setMenuOpen(false)}
+            >
+              🛍️ Marketplace
+            </Link>
+            <Link
+              to="/cart"
+              className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-indigo-600 transition relative"
+              onClick={() => setMenuOpen(false)}
+            >
+              🛒 Cart
+              {cartCount > 0 && (
+                <span className="absolute right-3 bg-red-500 text-xs px-2 py-0.5 rounded-full text-white shadow-md animate-pulse">
+                  {cartCount}
+                </span>
+              )}
+            </Link>
+          </div>
+
+          <div className="border-t border-gray-700"></div>
+
+          <div className="flex flex-col space-y-4 mt-auto">
+            <Link
+              to="/login"
+              className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-indigo-600 transition"
+              onClick={() => setMenuOpen(false)}
+            >
+              🔑 Login
+            </Link>
+          </div>
         </div>
       </Transition>
     </nav>
