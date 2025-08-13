@@ -9,6 +9,9 @@ import Register from "./pages/Register";
 import { useEffect } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "./firebaseConfig";
+import TopModeToggle from "./components/TopModeToggle";
+import Marketplace from "./pages/Marketplace";
+import { CartProvider } from "./context/CartContext"; // ✅ Import CartProvider
 
 // Replace with your real listings + image URLs
 const sampleListings = [
@@ -57,17 +60,28 @@ function App() {
 
   return (
     <Router>
-      <Navbar />
-      <div>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/listing/:id" element={<ListingDetail />} />
-          <Route path="/host/:id" element={<HostProfile />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
-      </div>
+      <CartProvider> {/* ✅ Wrap everything with CartProvider */}
+        <div className="flex flex-col min-h-screen">
+          {/* ✅ Navbar + Mode Toggle in one row */}
+          <div className="flex items-center justify-between px-4 py-2 bg-gray-100 shadow-md">
+            <Navbar />
+            <TopModeToggle /> {/* ✅ Now visible */}
+          </div>
+
+          {/* ✅ Page Content */}
+          <div className="flex-1">
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/market" element={<Marketplace />} />
+              <Route path="/listing/:id" element={<ListingDetail />} />
+              <Route path="/host/:id" element={<HostProfile />} />
+              <Route path="/cart" element={<Cart />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/register" element={<Register />} />
+            </Routes>
+          </div>
+        </div>
+      </CartProvider>
     </Router>
   );
 }
