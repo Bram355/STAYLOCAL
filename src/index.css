@@ -1,3 +1,65 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* Animated gradient background for the whole app */
+body {
+  background: linear-gradient(-45deg, #ff6f61, #ffb347, #6a5acd, #00c9a7);
+  background-size: 400% 400%;
+  animation: gradientAnimation 15s ease infinite;
+  min-height: 100vh;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+}
+
+/* Remove white backgrounds from all elements unless explicitly set */
+* {
+  background-color: transparent !important;
+}
+
+/* Gradient animation keyframes */
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Bold colorful StayLocal text */
+.staylocal-title {
+  font-weight: 900;
+  font-size: 2.5rem;
+  background: linear-gradient(90deg, #ff6f61, #ffb347, #6a5acd, #00c9a7);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: textGradient 8s ease infinite;
+}
+
+/* Text gradient animation */
+@keyframes textGradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradientShift 5s ease infinite;
+}

@@ -11,7 +11,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "./firebaseConfig";
 import TopModeToggle from "./components/TopModeToggle";
 import Marketplace from "./pages/Marketplace";
-import { CartProvider } from "./context/CartContext"; // ✅ Import CartProvider
+import { CartProvider } from "./context/CartContext";
 
 // Replace with your real listings + image URLs
 const sampleListings = [
@@ -60,16 +60,17 @@ function App() {
 
   return (
     <Router>
-      <CartProvider> {/* ✅ Wrap everything with CartProvider */}
-        <div className="flex flex-col min-h-screen">
-          {/* ✅ Navbar + Mode Toggle in one row */}
-          <div className="flex items-center justify-between px-4 py-2 bg-gray-100 shadow-md">
+      <CartProvider>
+        {/* Gradient background wrapper */}
+        <div className="flex flex-col min-h-screen bg-animated">
+          {/* Navbar + Mode Toggle */}
+          <div className="flex items-center justify-between px-4 py-2 bg-gray-100/80 shadow-md backdrop-blur">
             <Navbar />
-            <TopModeToggle /> {/* ✅ Now visible */}
+            <TopModeToggle />
           </div>
 
-          {/* ✅ Page Content */}
-          <div className="flex-1">
+          {/* Page Content */}
+          <div className="flex-1 px-4 py-6">
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/market" element={<Marketplace />} />
