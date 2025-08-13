@@ -43,6 +43,7 @@ export default function Navbar() {
             Listings
           </Link>
 
+          {/* Desktop Marketplace Button */}
           <Link
             to="/market"
             className="px-4 py-2 rounded-lg bg-indigo-600 shadow-md text-white hover:bg-indigo-700 hover:shadow-lg transition transform hover:-translate-y-0.5"
@@ -80,7 +81,7 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Professional Mobile Menu */}
+      {/* Mobile Menu */}
       <Transition
         show={menuOpen}
         enter="transition ease-out duration-300 transform"
@@ -90,7 +91,7 @@ export default function Navbar() {
         leaveFrom="translate-x-0 opacity-100"
         leaveTo="translate-x-full opacity-0"
       >
-        <div className="fixed top-0 right-0 h-full w-72 bg-gray-900/95 backdrop-blur-lg shadow-2xl z-50 flex flex-col py-6 px-4 space-y-6 text-lg font-bold text-white">
+        <div className="fixed top-0 right-0 h-full w-72 bg-gray-900 shadow-2xl z-50 flex flex-col py-6 px-4 space-y-6 text-lg font-bold text-white">
           
           {/* Menu Close Button */}
           <button
