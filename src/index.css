@@ -64,22 +64,38 @@ body {
   animation: gradientShift 5s ease infinite;
 }
 
-/* ✅ Custom Tailwind utility animations */
+/* === Extra Glow Effects === */
 @layer utilities {
-  .animate-pulseSlow {
-    animation: pulseSlow 3s infinite;
+  /* Text glow for better visibility */
+  .text-glow {
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.7);
   }
-  @keyframes pulseSlow {
+
+  /* Soft glowing loop for active buttons */
+  .animate-pulseGlow {
+    animation: pulseGlow 2.5s ease-in-out infinite;
+  }
+
+  @keyframes pulseGlow {
     0%, 100% {
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.6),
+                  0 0 20px rgba(255, 255, 255, 0.4);
       transform: scale(1);
-      opacity: 1;
     }
     50% {
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.9),
+                  0 0 35px rgba(255, 255, 255, 0.6);
       transform: scale(1.05);
-      opacity: 0.9;
     }
   }
 
+  /* Subtle glow around the menu container */
+  .menu-glow {
+    box-shadow: 0 0 15px rgba(255, 215, 0, 0.4),
+                0 0 30px rgba(255, 215, 0, 0.2);
+  }
+
+  /* Fade-in animation */
   .animate-fadeIn {
     animation: fadeIn 0.8s ease-out forwards;
   }
