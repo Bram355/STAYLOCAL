@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Transition } from "@headlessui/react";
+import TopModeToggle from "./TopModeToggle"; // ✅ import toggle here
 
 export default function Navbar() {
   const [cartCount, setCartCount] = useState(0);
@@ -60,6 +61,9 @@ export default function Navbar() {
           >
             Login
           </Link>
+
+          {/* ✅ Mode toggle added (desktop) */}
+          <TopModeToggle />
         </div>
 
         {/* Mobile Menu Button */}
@@ -135,11 +139,16 @@ export default function Navbar() {
             </Link>
             <Link
               to="/login"
-              className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-indigo-600 transition mt-auto"
+              className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-indigo-600 transition"
               onClick={() => setMenuOpen(false)}
             >
               🔑 Login
             </Link>
+
+            {/* ✅ Mode toggle (mobile) */}
+            <div className="mt-6">
+              <TopModeToggle />
+            </div>
           </div>
         </div>
       </Transition>

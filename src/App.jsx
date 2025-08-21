@@ -9,7 +9,6 @@ import Register from "./pages/Register";
 import { useEffect } from "react";
 import { collection, addDoc } from "firebase/firestore";
 import { db } from "./firebaseConfig";
-import TopModeToggle from "./components/TopModeToggle";
 import Marketplace from "./pages/Marketplace";
 import { CartProvider } from "./context/CartContext";
 
@@ -63,14 +62,12 @@ function App() {
       <CartProvider>
         {/* Gradient background wrapper */}
         <div className="flex flex-col min-h-screen bg-animated">
-          {/* Navbar + Mode Toggle */}
-          <div className="flex items-center justify-between px-4 py-2 bg-gray-100/80 shadow-md backdrop-blur">
-            <Navbar />
-            <TopModeToggle />
-          </div>
+          {/* Navbar (fixed inside itself now) */}
+          <Navbar />
 
           {/* Page Content */}
-          <div className="flex-1 px-4 py-6">
+          <div className="flex-1 px-4 py-6 pt-24"> 
+            {/* pt-24 pushes content down below fixed navbar */}
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/market" element={<Marketplace />} />
