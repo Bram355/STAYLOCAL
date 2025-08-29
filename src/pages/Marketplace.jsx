@@ -1,18 +1,37 @@
 import React, { useState, useMemo } from "react";
-import { furniture, mirrors } from "../data/marketData";
+import { furniture as furnitureData, mirrors as mirrorsData } from "../data/marketData";
 
 export default function Marketplace() {
+  // pretend admin login
+  const isAdmin = true;
+
+  // keep furniture + mirrors in state so they can be modified
+  const [furniture, setFurniture] = useState(furnitureData);
+  const [mirrors, setMirrors] = useState(mirrorsData);
+
   const [tab, setTab] = useState("furniture");
   const [search, setSearch] = useState("");
 
+  // new item form
+  const [newItem, setNewItem] = useState({
+    title: "",
+    description: "",
+    price: "",
+    image: "",
+    category: "furniture",
+  });
+
+  // pick list based on tab
   const items = useMemo(() => {
     const list = tab === "furniture" ? furniture : mirrors;
-    return list.filter(item =>
-      item.title.toLowerCase().includes(search.toLowerCase()) ||
-      item.description.toLowerCase().includes(search.toLowerCase())
+    return list.filter(
+      (item) =>
+        item.title.toLowerCase().includes(search.toLowerCase()) ||
+        item.description.toLowerCase().includes(search.toLowerCase())
     );
-  }, [tab, search]);
+  }, [tab, search, furniture, mirrors]);
 
+  // add to cart
   const addToCart = (item) => {
     const cart = JSON.parse(localStorage.getItem("cart")) || [];
     cart.push({
@@ -25,6 +44,56 @@ export default function Marketplace() {
     localStorage.setItem("cart", JSON.stringify(cart));
     window.dispatchEvent(new Event("cartUpdated"));
     alert(`${item.title} added to cart`);
+  };
+
+  // delete item
+  const handleDelete = (id, category) => {
+    if (category === "furniture") {
+      setFurniture(furniture.filter((item) => item.id !== id));
+    } else {
+      setMirrors(mirrors.filter((item) => item.id !== id));
+    }
+  };
+
+  // update price
+  const handleUpdatePrice = (id, newPrice, category) => {
+    if (category === "furniture") {
+      setFurniture(
+        furniture.map((item) =>
+          item.id === id ? { ...item, price: newPrice } : item
+        )
+      );
+    } else {
+      setMirrors(
+        mirrors.map((item) =>
+          item.id === id ? { ...item, price: newPrice } : item
+        )
+      );
+    }
+  };
+
+  // add new item
+  const handleAddItem = () => {
+    const newObj = {
+      id: Date.now(),
+      ...newItem,
+      price: Number(newItem.price),
+    };
+
+    if (newItem.category === "furniture") {
+      setFurniture([...furniture, newObj]);
+    } else {
+      setMirrors([...mirrors, newObj]);
+    }
+
+    // reset form
+    setNewItem({
+      title: "",
+      description: "",
+      price: "",
+      image: "",
+      category: "furniture",
+    });
   };
 
   return (
@@ -71,6 +140,59 @@ export default function Marketplace() {
         </div>
       </div>
 
+      {/* Admin add form */}
+      {isAdmin && (
+        <div className="max-w-7xl mx-auto px-4 mb-8">
+          <div className="bg-gray-800/70 p-4 rounded-xl shadow">
+            <h2 className="text-xl font-bold text-yellow-300 mb-3">Add New Item</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <input
+                type="text"
+                placeholder="Title"
+                value={newItem.title}
+                onChange={(e) => setNewItem({ ...newItem, title: e.target.value })}
+                className="px-3 py-2 rounded bg-gray-900 border border-gray-700"
+              />
+              <input
+                type="number"
+                placeholder="Price"
+                value={newItem.price}
+                onChange={(e) => setNewItem({ ...newItem, price: e.target.value })}
+                className="px-3 py-2 rounded bg-gray-900 border border-gray-700"
+              />
+              <input
+                type="text"
+                placeholder="Image URL"
+                value={newItem.image}
+                onChange={(e) => setNewItem({ ...newItem, image: e.target.value })}
+                className="px-3 py-2 rounded bg-gray-900 border border-gray-700"
+              />
+              <input
+                type="text"
+                placeholder="Description"
+                value={newItem.description}
+                onChange={(e) => setNewItem({ ...newItem, description: e.target.value })}
+                className="px-3 py-2 rounded bg-gray-900 border border-gray-700"
+              />
+              <select
+                value={newItem.category}
+                onChange={(e) => setNewItem({ ...newItem, category: e.target.value })}
+                className="px-3 py-2 rounded bg-gray-900 border border-gray-700"
+              >
+                <option value="furniture">Furniture</option>
+                <option value="mirrors">Mirrors</option>
+              </select>
+              <button
+                onClick={handleAddItem}
+                className="bg-yellow-400 text-black font-bold py-2 rounded hover:bg-yellow-500 transition"
+              >
+                Add Item
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
       {/* Grid */}
       <div className="max-w-7xl mx-auto px-4 pb-16">
         {items.length === 0 ? (
@@ -100,12 +222,31 @@ export default function Marketplace() {
                   <h3 className="text-xl font-bold text-yellow-300">{item.title}</h3>
                   <p className="text-gray-400 text-sm mt-1">{item.description}</p>
 
+                  {/* Normal users: add to cart */}
                   <button
                     onClick={() => addToCart(item)}
                     className="mt-4 w-full bg-yellow-400 hover:bg-yellow-500 active:scale-95 text-black font-bold py-2.5 rounded-lg transition shadow-lg hover:shadow-yellow-500/40"
                   >
                     Add to Cart
                   </button>
+
+                  {/* Admin controls */}
+                  {isAdmin && (
+                    <div className="mt-3 space-y-2">
+                      <input
+                        type="number"
+                        placeholder="Update Price"
+                        onChange={(e) => handleUpdatePrice(item.id, Number(e.target.value), tab)}
+                        className="w-full px-2 py-1 rounded bg-gray-800 border border-gray-700"
+                      />
+                      <button
+                        onClick={() => handleDelete(item.id, tab)}
+                        className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 rounded"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
