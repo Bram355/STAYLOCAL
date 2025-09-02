@@ -11,6 +11,7 @@ import { collection, addDoc } from "firebase/firestore";
 import { db } from "./firebaseConfig";
 import Marketplace from "./pages/Marketplace";
 import { CartProvider } from "./context/CartContext";
+import AdminPanel from "./pages/AdminPanel"; // ✅ added
 
 // Replace with your real listings + image URLs
 const sampleListings = [
@@ -57,6 +58,9 @@ function App() {
     seedListings();
   }, []);
 
+  // ✅ temporary admin flag (later replace with Firebase Auth check)
+  const isAdmin = true;
+
   return (
     <Router>
       <CartProvider>
@@ -76,6 +80,8 @@ function App() {
               <Route path="/cart" element={<Cart />} />
               <Route path="/login" element={<Login />} />
               <Route path="/register" element={<Register />} />
+              {/* ✅ new Admin route */}
+              <Route path="/admin" element={<AdminPanel isAdmin={isAdmin} />} />
             </Routes>
           </div>
         </div>
